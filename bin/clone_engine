@@ -1,0 +1,156 @@
+#!/bin/bash
+
+# ==============================================================================
+# Script Name: clone_engine.sh
+# Description: Automates the cloning and renaming of a Rails 8 Engine.
+#              Performs deep recursive renaming of files, directories, and 
+#              file contents to ensure namespace isolation and functional integrity.
+#
+# Usage:    ./clone_engine.sh <path_to_source_engine> <NewEngineName>
+# Example:  ./clone_engine.sh../engines/Hubstaff NexusAdmin
+#
+# Constraints: Source engine must follow standard Rails 8 mountable structure.
+#              New name should be in PascalCase (e.g., SuperAdmin).
+# ==============================================================================
+
+set -e # Exit immediately if a command exits with a non-zero status
+
+# --- 1. CONFIGURATION & VALIDATION ---
+
+SOURCE_PATH="$1"
+NEW_NAME_PASCAL="$2"
+
+# Hardcoded source identity as per prompt requirements
+SOURCE_NAME_PASCAL="Hubstaff"
+SOURCE_NAME_SNAKE="hubstaff"
+SOURCE_NAME_KEBAB="hubstaff" # Required for Stimulus data-controllers and CSS
+
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <path_to_source> <NewName>"
+    echo "Error: Invalid arguments."
+    exit 1
+fi
+
+if [ ! -d "$SOURCE_PATH" ]; then
+    echo "Error: Source directory '$SOURCE_PATH' does not exist."
+    exit 1
+fi
+
+# Calculate snake_case for the new name
+# Logic: Insert underscore between LowerUpper, then lowercase all.
+# Example: NexusAdmin -> nexus_admin
+NEW_NAME_SNAKE=$(echo "$NEW_NAME_PASCAL" | sed -r 's/([a-z0-9])([A-Z])/\1_\2/g' 2>/dev/null | \
+                 sed 's/\([a-z0-9]\)\([A-Z]\)/\1_\2/g' | tr '[:upper:]' '[:lower:]')
+
+# Calculate kebab-case for the new name
+# Example: nexus_admin -> nexus-admin
+NEW_NAME_KEBAB=$(echo "$NEW_NAME_SNAKE" | tr '_' '-')
+
+# Define target path (sibling to source)
+PARENT_DIR=$(dirname "$SOURCE_PATH")
+TARGET_PATH="${PARENT_DIR}/${NEW_NAME_PASCAL}"
+
+echo "=========================================================="
+echo "   RAILS 8 ENGINE CLONING AUTOMATION"
+echo "=========================================================="
+echo "Source Engine:  $SOURCE_NAME_PASCAL ($SOURCE_NAME_SNAKE / $SOURCE_NAME_KEBAB)"
+echo "Target Engine:  $NEW_NAME_PASCAL ($NEW_NAME_SNAKE / $NEW_NAME_KEBAB)"
+echo "Source Path:    $SOURCE_PATH"
+echo "Target Path:    $TARGET_PATH"
+echo "=========================================================="
+
+# --- 2. DUPLICATION & SANITIZATION ---
+
+if [ -d "$TARGET_PATH" ]; then
+    echo "Error: Target directory '$TARGET_PATH' already exists. Aborting."
+    exit 1
+fi
+
+echo "[1/6] Duplicating source directory..."
+cp -R "$SOURCE_PATH" "$TARGET_PATH"
+cd "$TARGET_PATH"
+
+echo "[2/6] Sanitizing artifacts..."
+rm -rf .git         # Remove original git history
+rm -rf tmp/*        # Remove temp files
+rm -rf log/*        # Remove logs
+rm -rf .sass-cache  # Remove asset cache if present
+rm -f Gemfile.lock  # Force fresh dependency resolution
+
+# --- 3. ENVIRONMENT DETECTION ---
+
+# MacOS (Darwin) sed requires an empty extension argument for -i
+# Linux (GNU) sed does not support it or handles it differently
+OS_TYPE=$(uname)
+# if [ "$OS_TYPE" = "Darwin" ]; then
+#     SED_CMD="sed -i"
+# else
+#     SED_CMD="sed -i"
+# fi
+SED_CMD="sed -i .bak"
+
+# --- 4. CONTENT MUTATION ---
+
+echo "[3/6] Mutating file contents..."
+
+# Function to perform recursive text replacement
+# Uses grep -I to ignore binary files (images, etc.)
+# LC_ALL=C is used to prevent illegal byte sequence errors on some systems
+replace_text() {
+    local find_str="$1"
+    local replace_str="$2"
+    
+    echo "  > Replacing '$find_str' with '$replace_str'..."
+    grep -rlI "$find_str" . | while IFS= read -r file; do
+        LC_ALL=C $SED_CMD "s/$find_str/$replace_str/g" "$file" && rm "$file.bak"
+    done
+}
+
+# Replace PascalCase references (e.g., Module definitions, Class names)
+replace_text "$SOURCE_NAME_PASCAL" "$NEW_NAME_PASCAL"
+
+# Replace snake_case references (e.g., require paths, route helpers, filenames in code)
+replace_text "$SOURCE_NAME_SNAKE" "$NEW_NAME_SNAKE"
+
+# Replace kebab-case references (e.g., Stimulus controllers, HTML attributes, CSS classes)
+replace_text "$SOURCE_NAME_KEBAB" "$NEW_NAME_KEBAB"
+
+# --- 5. RECURSIVE RENAMING ---
+
+echo "[4/6] Renaming files and directories..."
+
+# 5a. Rename FILES
+# We do this before directories to ensure paths remain valid during loop
+find . -type f -name "*${SOURCE_NAME_SNAKE}*" | while read -r file; do
+    dir=$(dirname "$file")
+    filename=$(basename "$file")
+    new_filename=$(echo "$filename" | sed "s/$SOURCE_NAME_SNAKE/$NEW_NAME_SNAKE/g")
+    mv "$file" "$dir/$new_filename"
+done
+
+# 5b. Rename DIRECTORIES
+# We MUST use -depth to rename children before parents.
+# If we renamed parent first, the child path would become invalid.
+find . -type d -name "*${SOURCE_NAME_SNAKE}*" -depth | while read -r dir; do
+    parent=$(dirname "$dir")
+    dirname=$(basename "$dir")
+    new_dirname=$(echo "$dirname" | sed "s/$SOURCE_NAME_SNAKE/$NEW_NAME_SNAKE/g")
+    mv "$dir" "$parent/$new_dirname"
+done
+
+# --- 6. FINALIZATION ---
+
+echo "[5/6] Re-initializing version control..."
+git init > /dev/null
+git add .
+git commit -m "Initial commit: Cloned from $SOURCE_NAME_PASCAL" > /dev/null
+
+echo "[6/6] Operation Complete."
+echo ""
+echo "NEXT STEPS:"
+echo "1. cd $TARGET_PATH"
+echo "2. bundle install"
+echo "3. bin/rails db:create db:migrate (in test/dummy)"
+echo "4. bin/rails test"
+echo ""
+echo "The engine '$NEW_NAME_PASCAL' is ready for development."

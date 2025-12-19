@@ -1,0 +1,31 @@
+/* Engine CSS */
+@import "tailwindcss";
+
+/* 
+   @source Directive:
+   Explicitly tells the CLI where to look for class usage within the engine.
+   Relative path resolution is key here. 
+   Assuming the file is in app/assets/tailwind/my_engine/engine.css:
+  .. -> my_engine
+  .. -> tailwind
+  .. -> assets
+  .. -> app
+  ../views -> Target Directory
+*/
+@source "../../../views"; 
+
+/* 
+   @plugin Directive:
+   If the engine relies on specific plugins (e.g., typography, forms),
+   they must be declared here if not inheriting from the host.
+*/
+/*
+@plugin "@tailwindcss/typography";
+*/
+
+/* Custom Theme Variables specific to the engine */
+/*
+@theme {
+  --color-engine-brand: oklch(0.65 0.2 30);
+}
+*/
