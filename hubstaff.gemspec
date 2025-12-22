@@ -28,6 +28,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency "solid_cable"
   spec.add_dependency "tailwindcss-rails"
   spec.add_dependency "importmap-rails"
+  spec.add_dependency "faraday"
+  spec.add_dependency "httpx"
+  spec.add_dependency "openid_connect"
 
   # Development Dependencies
   # These are used only for running the engine's test suite.
