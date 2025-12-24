@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in hubstaff.gemspec.
+# Specify your gem's dependencies in tudla_hubstaff.gemspec.
 gemspec
 
 gem "puma"

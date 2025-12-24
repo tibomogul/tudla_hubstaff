@@ -4,7 +4,7 @@ Guidelines for AI agents working on this codebase.
 
 ## Project Overview
 
-**Hubstaff** is a Rails 8.1 mountable engine gem that provides core domain logic with the "Solid trifecta" integration:
+**TudlaHubstaff** is a Rails 8.1 mountable engine gem that provides core domain logic with the "Solid trifecta" integration:
 - **Solid Queue** - Background job processing
 - **Solid Cache** - SQL-backed caching
 - **Solid Cable** - Action Cable adapter
@@ -14,12 +14,12 @@ Additional integrations: Tailwind CSS, Importmap Rails.
 ## Architecture
 
 ```
-hubstaff/
+tudla_hubstaff/
 ├── app/                    # Engine application code (controllers, models, views, jobs)
 ├── config/                 # Engine configuration
 ├── lib/
-│   ├── hubstaff.rb        # Main entry point, requires dependencies
-│   └── hubstaff/
+│   ├── tudla_hubstaff.rb        # Main entry point, requires dependencies
+│   └── tudla_hubstaff/
 │       ├── engine.rb       # Rails::Engine configuration
 │       └── version.rb      # Gem version
 ├── spec/
@@ -27,14 +27,14 @@ hubstaff/
 │   ├── integration/        # Integration specs
 │   ├── rails_helper.rb     # RSpec Rails configuration
 │   └── spec_helper.rb      # RSpec base configuration
-└── hubstaff.gemspec       # Gem specification
+└── tudla_hubstaff.gemspec       # Gem specification
 ```
 
 ## Key Conventions
 
 ### Engine Isolation
-- The engine uses `isolate_namespace Hubstaff` - all models, controllers, and routes are namespaced under `Hubstaff::`
-- URL helpers require `Hubstaff::Engine.routes.url_helpers`
+- The engine uses `isolate_namespace TudlaHubstaff` - all models, controllers, and routes are namespaced under `TudlaHubstaff::`
+- URL helpers require `TudlaHubstaff::Engine.routes.url_helpers`
 
 ### Database Configuration (Solid Trifecta)
 The dummy app uses **multiple databases** for the Solid stack:
@@ -61,7 +61,7 @@ Do NOT use both `database:` in yml config files AND `connects_to` in environment
 When writing tests:
 - Use `stub_const` for inline job classes (SolidQueue requires named classes)
 - SolidCache hashes keys internally - don't query by raw key name
-- Include `Hubstaff::Engine.routes.url_helpers` for route helpers in specs
+- Include `TudlaHubstaff::Engine.routes.url_helpers` for route helpers in specs
 
 ### Code Style
 

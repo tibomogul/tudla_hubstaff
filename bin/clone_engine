@@ -7,7 +7,7 @@
 #              file contents to ensure namespace isolation and functional integrity.
 #
 # Usage:    ./clone_engine.sh <path_to_source_engine> <NewEngineName>
-# Example:  ./clone_engine.sh../engines/Hubstaff NexusAdmin
+# Example:  ./clone_engine.sh../engines/TudlaHubstaff NexusAdmin
 #
 # Constraints: Source engine must follow standard Rails 8 mountable structure.
 #              New name should be in PascalCase (e.g., SuperAdmin).
@@ -21,9 +21,9 @@ SOURCE_PATH="$1"
 NEW_NAME_PASCAL="$2"
 
 # Hardcoded source identity as per prompt requirements
-SOURCE_NAME_PASCAL="Hubstaff"
-SOURCE_NAME_SNAKE="hubstaff"
-SOURCE_NAME_KEBAB="hubstaff" # Required for Stimulus data-controllers and CSS
+SOURCE_NAME_PASCAL="TudlaHubstaff"
+SOURCE_NAME_SNAKE="tudla_hubstaff"
+SOURCE_NAME_KEBAB="tudla_hubstaff" # Required for Stimulus data-controllers and CSS
 
 if [ "$#" -ne 2 ]; then
     echo "Usage: $0 <path_to_source> <NewName>"

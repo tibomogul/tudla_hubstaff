@@ -1,4 +1,4 @@
-module Hubstaff
+module TudlaHubstaff
   class ApplicationRecord < ActiveRecord::Base
     self.abstract_class = true
   end

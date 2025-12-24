@@ -1,4 +1,4 @@
-module Hubstaff
+module TudlaHubstaff
   class ApiClient
     attr_reader :organization_id, :connection
 

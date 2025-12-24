@@ -1,2 +1,2 @@
-Hubstaff::Engine.routes.draw do
+TudlaHubstaff::Engine.routes.draw do
 end

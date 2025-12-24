@@ -8,9 +8,9 @@ require "faraday"
 require "httpx/adapters/faraday"
 require "openid_connect"
 
-require "hubstaff/version"
-require "hubstaff/engine"
+require "tudla_hubstaff/version"
+require "tudla_hubstaff/engine"
 
-module Hubstaff
+module TudlaHubstaff
   # Your code goes here...
 end

@@ -1,4 +1,4 @@
-module Hubstaff
+module TudlaHubstaff
   class ApiConnection
     AUTH_URL = "https://account.hubstaff.com"
     BASE_URL = "https://api.hubstaff.com/"

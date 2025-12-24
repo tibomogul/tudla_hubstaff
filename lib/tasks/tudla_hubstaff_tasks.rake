@@ -1,4 +1,4 @@
 # desc "Explaining what the task does"
-# task :hubstaff do
+# task :tudla_hubstaff do
 #   # Task goes here
 # end

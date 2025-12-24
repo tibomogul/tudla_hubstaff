@@ -1,4 +1,4 @@
-# Hubstaff
+# TudlaHubstaff
 Short description and motivation.
 
 ## Usage
@@ -8,7 +8,7 @@ How to use my plugin.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem "hubstaff"
+gem "tudla_hubstaff"
 ```
 
 And then execute:
@@ -18,7 +18,7 @@ $ bundle
 
 Or install it yourself as:
 ```bash
-$ gem install hubstaff
+$ gem install tudla_hubstaff
 ```
 
 ## Contributing

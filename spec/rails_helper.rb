@@ -78,5 +78,5 @@ RSpec.configure do |config|
   # Engine Routing Helper
   # This is vital. Without it, controller specs won't know how to generate URLs
   # for the engine's isolated routes.
-  config.include Hubstaff::Engine.routes.url_helpers
+  config.include TudlaHubstaff::Engine.routes.url_helpers
 end

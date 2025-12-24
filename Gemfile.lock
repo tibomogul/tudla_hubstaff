@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    hubstaff (0.1.0)
+    tudla_hubstaff (0.1.0)
       faraday
       httpx
       importmap-rails
@@ -448,7 +448,6 @@ DEPENDENCIES
   debug
   dotenv
   factory_bot_rails
-  hubstaff!
   openssl (~> 3.3.1)
   pg
   propshaft
@@ -458,6 +457,7 @@ DEPENDENCIES
   selenium-webdriver
   simplecov
   sqlite3
+  tudla_hubstaff!
 
 BUNDLED WITH
    2.5.11

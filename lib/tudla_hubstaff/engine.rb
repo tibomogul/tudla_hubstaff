@@ -1,6 +1,6 @@
-module Hubstaff
+module TudlaHubstaff
   class Engine < ::Rails::Engine
-    isolate_namespace Hubstaff
+    isolate_namespace TudlaHubstaff
 
     config.generators do |g|
       g.test_framework :rspec
@@ -10,7 +10,7 @@ module Hubstaff
 
     # Advanced FactoryBot Configuration
     # We hook into the initializer to append the path relative to the Engine's root.
-    initializer "hubstaff.factories", after: "factory_bot.set_factory_paths" do
+    initializer "tudla_hubstaff.factories", after: "factory_bot.set_factory_paths" do
       if defined?(FactoryBot)
         FactoryBot.definition_file_paths << File.expand_path("../../../spec/factories", __FILE__)
       end

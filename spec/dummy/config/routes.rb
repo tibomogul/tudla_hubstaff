@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount Hubstaff::Engine => "/hubstaff"
+  mount TudlaHubstaff::Engine => "/tudla_hubstaff"
 end

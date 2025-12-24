@@ -1,8 +1,8 @@
-require_relative "lib/hubstaff/version"
+require_relative "lib/tudla_hubstaff/version"
 
 Gem::Specification.new do |spec|
-  spec.name        = "hubstaff"
-  spec.version     = Hubstaff::VERSION
+  spec.name        = "tudla_hubstaff"
+  spec.version     = TudlaHubstaff::VERSION
   spec.authors     = [ "Tibo Mogul" ]
   spec.email       = [ "tibo.mogul@gmail.com" ]
   spec.homepage    = "https://tibomogul.github.io/"
