@@ -89,6 +89,9 @@ bundle exec rspec
 # Run specific spec file
 bundle exec rspec spec/integration/solid_stack_spec.rb
 
+# Run migrations (delegated to dummy app)
+bundle exec rails db:migrate
+
 # Prepare test databases
 cd spec/dummy && RAILS_ENV=test bin/rails db:prepare
 
@@ -101,3 +104,4 @@ bundle exec rubocop
 1. **Solid gems and database connections** - Always configure `connects_to` in environment files, not `database:` in yml files for dev/test
 2. **Engine routes** - Use `main_app.` prefix for host app routes, engine routes are available directly
 3. **FactoryBot paths** - Engine factories are in `spec/factories/`, auto-loaded via engine initializer
+4. **Running Rake Tasks** - Database migrations and other rake tasks can be run directly from the gem root (e.g., `bundle exec rails db:migrate`) as they are delegated to the dummy app via the engine's `Rakefile`.
