@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "faraday"
   spec.add_dependency "httpx"
   spec.add_dependency "openid_connect"
+  spec.add_dependency "tudla_contracts"
 
   # Development Dependencies
   # These are used only for running the engine's test suite.

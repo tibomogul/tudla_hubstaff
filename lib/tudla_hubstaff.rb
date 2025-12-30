@@ -7,9 +7,13 @@ require "importmap-rails"
 require "faraday"
 require "httpx/adapters/faraday"
 require "openid_connect"
+require "tudla_contracts"
 
 require "tudla_hubstaff/version"
+require "tudla_hubstaff/provider"
+require "tudla_hubstaff/config"
 require "tudla_hubstaff/engine"
+
 
 module TudlaHubstaff
   # Your code goes here...

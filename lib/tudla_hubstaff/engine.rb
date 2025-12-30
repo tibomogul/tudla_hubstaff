@@ -15,5 +15,16 @@ module TudlaHubstaff
         FactoryBot.definition_file_paths << File.expand_path("../../../spec/factories", __FILE__)
       end
     end
+
+    # Define an initializer that runs when the app boots
+    initializer "tudla_hubstaff.register_integration" do
+      # Register this gem's classes
+      TudlaContracts::Integrations::Registry.register(
+        "hubstaff",
+        type: "time_sheet",
+        provider_class: TudlaHubstaff::Provider,
+        config_class: TudlaHubstaff::Config
+      )
+    end
   end
 end
