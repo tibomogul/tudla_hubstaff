@@ -10,7 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_31_043338) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_31_045209) do
+  create_table "tudla_hubstaff_activities", force: :cascade do |t|
+    t.bigint "activity_id", null: false
+    t.integer "billable", default: 0
+    t.datetime "created_at", null: false
+    t.string "date", null: false
+    t.integer "idle", default: 0
+    t.integer "input_tracked", default: 0
+    t.integer "keyboard", default: 0
+    t.datetime "last_updated_at"
+    t.integer "manual", default: 0
+    t.integer "mouse", default: 0
+    t.integer "overall", default: 0
+    t.bigint "project_id"
+    t.integer "resumed", default: 0
+    t.bigint "task_id"
+    t.integer "tracked", default: 0
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.integer "work_break", default: 0
+    t.index ["activity_id"], name: "index_tudla_hubstaff_activities_on_activity_id", unique: true
+    t.index ["date"], name: "index_tudla_hubstaff_activities_on_date"
+    t.index ["project_id"], name: "index_tudla_hubstaff_activities_on_project_id"
+    t.index ["task_id"], name: "index_tudla_hubstaff_activities_on_task_id"
+    t.index ["user_id"], name: "index_tudla_hubstaff_activities_on_user_id"
+  end
+
   create_table "tudla_hubstaff_projects", force: :cascade do |t|
     t.integer "client_id"
     t.datetime "created_at", null: false
