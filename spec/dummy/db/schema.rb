@@ -10,19 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_30_225408) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_31_043338) do
   create_table "tudla_hubstaff_projects", force: :cascade do |t|
     t.integer "client_id"
     t.datetime "created_at", null: false
     t.text "description"
+    t.datetime "last_updated_at"
     t.json "metadata", default: {}, null: false
     t.string "name", null: false
     t.bigint "project_id"
     t.string "project_type", null: false
     t.string "status"
+    t.bigint "tudla_project_id"
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_tudla_hubstaff_projects_on_client_id"
     t.index ["project_id"], name: "index_tudla_hubstaff_projects_on_project_id"
+    t.index ["tudla_project_id"], name: "index_tudla_hubstaff_projects_on_tudla_project_id"
   end
 
   create_table "tudla_hubstaff_tasks", force: :cascade do |t|
@@ -31,6 +34,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_30_225408) do
     t.text "details"
     t.datetime "due_at"
     t.integer "integration_id"
+    t.datetime "last_updated_at"
     t.integer "lock_version"
     t.json "metadata", default: {}, null: false
     t.integer "project_id", null: false
@@ -40,9 +44,11 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_30_225408) do
     t.string "status"
     t.string "summary", null: false
     t.bigint "task_id"
+    t.bigint "tudla_task_id"
     t.datetime "updated_at", null: false
     t.index ["remote_id"], name: "index_tudla_hubstaff_tasks_on_remote_id"
     t.index ["task_id"], name: "index_tudla_hubstaff_tasks_on_task_id"
+    t.index ["tudla_task_id"], name: "index_tudla_hubstaff_tasks_on_tudla_task_id"
   end
 
   create_table "tudla_hubstaff_users", force: :cascade do |t|
@@ -51,12 +57,15 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_30_225408) do
     t.string "first_name", null: false
     t.string "ip_address"
     t.string "last_name", null: false
+    t.datetime "last_updated_at"
     t.string "name", null: false
     t.string "status", default: "active", null: false
     t.string "time_zone", default: "UTC", null: false
+    t.bigint "tudla_user_id"
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.index ["email"], name: "index_tudla_hubstaff_users_on_email", unique: true
+    t.index ["tudla_user_id"], name: "index_tudla_hubstaff_users_on_tudla_user_id"
     t.index ["user_id"], name: "index_tudla_hubstaff_users_on_user_id"
   end
 end

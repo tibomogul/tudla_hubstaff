@@ -27,18 +27,30 @@ module TudlaHubstaff
       activities.body
     end
 
-    def members
+    def members(options = {})
       members = connection.get("v2/organizations/#{organization_id}/members") do |req|
         req.params["include"] = [ "users" ]
+        req.params["page_start_id"] = options[:page_start_id] unless options[:page_start_id].nil?
+        req.params["page_limit"] = options[:page_limit] unless options[:page_limit].nil?
       end
       members.body
+    end
+
+    def projects(options = {})
+      projects = connection.get("v2/organizations/#{@organization_id}/projects") do |req|
+        req.params["page_start_id"] = options[:page_start_id] unless options[:page_start_id].nil?
+        req.params["page_limit"] = options[:page_limit] unless options[:page_limit].nil?
+        req.params["status"] = options[:status] unless options[:status].nil?
+      end
+      projects.body
     end
 
     def tasks(options = {})
       tasks = connection.get("v2/organizations/#{organization_id}/tasks") do |req|
         req.params["page_start_id"] = options[:page_start_id] unless options[:page_start_id].nil?
         req.params["page_limit"] = options[:page_limit] unless options[:page_limit].nil?
-        req.params["status"] = options[:status] unless options[:status].nil?
+        status = options.key?(:status) ? options[:status] : "active"
+        req.params["status"] = status unless status.nil?
         req.params["project_ids"] = options[:project_ids].join(",") unless options[:project_ids].nil?
       end
       tasks.body

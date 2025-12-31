@@ -1,0 +1,185 @@
+{
+  "projects": [
+    {
+      "id": 934607,
+      "name": "Project Alpha",
+      "created_at": "2020-03-13T01:30:29.615323Z",
+      "updated_at": "2025-12-31T03:00:49.993897Z",
+      "status": "active",
+      "type": "project",
+      "billable": true,
+      "metadata": {}
+    },
+    {
+      "id": 934608,
+      "name": "Project Beta",
+      "created_at": "2020-03-13T01:30:29.651348Z",
+      "updated_at": "2023-08-23T19:03:52.292575Z",
+      "status": "active",
+      "type": "project",
+      "billable": true,
+      "metadata": {}
+    },
+    {
+      "id": 934642,
+      "name": "Mobile App iOS",
+      "created_at": "2020-03-13T02:04:29.664460Z",
+      "updated_at": "2025-12-31T03:00:57.381365Z",
+      "status": "active",
+      "type": "project",
+      "billable": true,
+      "metadata": {}
+    },
+    {
+      "id": 934644,
+      "name": "Mobile App Android",
+      "created_at": "2020-03-13T02:04:50.172425Z",
+      "updated_at": "2025-12-31T03:00:47.287279Z",
+      "status": "active",
+      "type": "project",
+      "billable": true,
+      "metadata": {}
+    },
+    {
+      "id": 934649,
+      "name": "Support & Maintenance",
+      "created_at": "2020-03-13T02:07:19.668949Z",
+      "updated_at": "2025-12-31T02:59:12.933366Z",
+      "status": "active",
+      "type": "project",
+      "billable": false,
+      "metadata": {}
+    },
+    {
+      "id": 2008543,
+      "name": "Training & Development",
+      "created_at": "2022-05-12T08:19:44.898650Z",
+      "updated_at": "2023-08-23T19:03:53.207236Z",
+      "status": "active",
+      "type": "project",
+      "billable": true,
+      "metadata": {}
+    },
+    {
+      "id": 2129949,
+      "name": "Customer Support",
+      "created_at": "2022-08-19T00:27:50.000320Z",
+      "updated_at": "2023-08-23T19:04:30.461523Z",
+      "status": "active",
+      "type": "project",
+      "billable": false,
+      "metadata": {}
+    },
+    {
+      "id": 2501555,
+      "name": "Project Gamma",
+      "created_at": "2023-05-03T01:30:10.548420Z",
+      "updated_at": "2025-12-31T03:00:54.769077Z",
+      "status": "active",
+      "type": "project",
+      "billable": true,
+      "metadata": {}
+    },
+    {
+      "id": 2501557,
+      "name": "Technical Support",
+      "created_at": "2023-05-03T01:30:10.804409Z",
+      "updated_at": "2024-12-29T23:31:02.396479Z",
+      "status": "active",
+      "type": "project",
+      "billable": true,
+      "metadata": {}
+    },
+    {
+      "id": 2501558,
+      "name": "Project Delta",
+      "created_at": "2023-05-03T01:30:10.911549Z",
+      "updated_at": "2025-12-31T03:00:56.052619Z",
+      "status": "active",
+      "type": "project",
+      "billable": true,
+      "metadata": {}
+    },
+    {
+      "id": 2618526,
+      "name": "General & Admin",
+      "created_at": "2023-08-04T06:31:46.345616Z",
+      "updated_at": "2023-08-23T18:13:25.807596Z",
+      "status": "active",
+      "type": "project",
+      "client_id": 335346,
+      "billable": false,
+      "metadata": {}
+    },
+    {
+      "id": 2618527,
+      "name": "Meeting - Internal",
+      "created_at": "2023-08-04T06:32:21.938522Z",
+      "updated_at": "2023-08-23T19:04:32.171164Z",
+      "status": "active",
+      "type": "project",
+      "billable": false,
+      "metadata": {}
+    },
+    {
+      "id": 2620756,
+      "name": "Meeting - External",
+      "created_at": "2023-08-07T05:54:33.080436Z",
+      "updated_at": "2023-08-23T18:13:12.837539Z",
+      "status": "active",
+      "type": "project",
+      "billable": true,
+      "metadata": {}
+    },
+    {
+      "id": 3106938,
+      "name": "Operations",
+      "created_at": "2024-08-18T23:33:57.473378Z",
+      "updated_at": "2025-12-31T03:00:53.723286Z",
+      "status": "active",
+      "type": "project",
+      "billable": true,
+      "metadata": {}
+    },
+    {
+      "id": 3106940,
+      "name": "Project Epsilon",
+      "created_at": "2024-08-18T23:33:57.893135Z",
+      "updated_at": "2025-12-31T03:00:48.646528Z",
+      "status": "active",
+      "type": "project",
+      "billable": true,
+      "metadata": {}
+    },
+    {
+      "id": 3486688,
+      "name": "Knowledge Base",
+      "created_at": "2025-05-02T00:34:00.196216Z",
+      "updated_at": "2025-12-31T03:00:52.492549Z",
+      "status": "active",
+      "type": "project",
+      "billable": true,
+      "metadata": {}
+    },
+    {
+      "id": 3486689,
+      "name": "Integration Service",
+      "created_at": "2025-05-02T00:34:00.252713Z",
+      "updated_at": "2025-12-31T03:00:51.278723Z",
+      "status": "active",
+      "type": "project",
+      "billable": true,
+      "metadata": {}
+    },
+    {
+      "id": 3525277,
+      "name": "Product Roadmap",
+      "created_at": "2025-06-03T23:28:19.297569Z",
+      "updated_at": "2025-06-04T03:35:39.018942Z",
+      "status": "active",
+      "type": "project",
+      "billable": true,
+      "metadata": {}
+    }
+  ]
+}
