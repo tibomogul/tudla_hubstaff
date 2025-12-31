@@ -74,13 +74,34 @@ tasks = client.tasks(status: "active")
 
 The engine uses RSpec for testing. A dummy Rails application is located in `spec/dummy`.
 
+### Database Setup for Tests
+
+**Important:** Rails 8 with the Solid trifecta uses multiple databases (primary, queue, cache, cable). When resetting the test database, you must load each schema separately.
+
 ```bash
-# Prepare the test database
-cd spec/dummy && RAILS_ENV=test bin/rails db:prepare
+# One-time setup or when you need a complete refresh
+RAILS_ENV=test bundle exec rails db:reset
+
+# Load Solid gem schemas (required after db:reset)
+RAILS_ENV=test bundle exec rails app:db:schema:load:cache
+RAILS_ENV=test bundle exec rails app:db:schema:load:queue
+RAILS_ENV=test bundle exec rails app:db:schema:load:cable
 
 # Run the specs
 bundle exec rspec
 ```
+
+**Quick workflow for ongoing development:**
+
+```bash
+# When adding new migrations
+RAILS_ENV=test bundle exec rails db:migrate
+
+# Run tests
+bundle exec rspec
+```
+
+**Note:** `db:reset` only loads the primary database schema. The Solid gem databases (cache, queue, cable) have separate schema files that must be loaded explicitly.
 
 ## License
 

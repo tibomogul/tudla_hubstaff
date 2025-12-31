@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_31_045209) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_31_074556) do
   create_table "tudla_hubstaff_activities", force: :cascade do |t|
     t.bigint "activity_id", null: false
     t.integer "billable", default: 0
@@ -35,6 +35,25 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_31_045209) do
     t.index ["project_id"], name: "index_tudla_hubstaff_activities_on_project_id"
     t.index ["task_id"], name: "index_tudla_hubstaff_activities_on_task_id"
     t.index ["user_id"], name: "index_tudla_hubstaff_activities_on_user_id"
+  end
+
+  create_table "tudla_hubstaff_configs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "organization_id"
+    t.string "personal_access_token"
+    t.bigint "tudla_organization_id"
+    t.string "tudla_organization_type"
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_tudla_hubstaff_configs_on_organization_id"
+    t.index ["tudla_organization_type", "tudla_organization_id"], name: "index_configs_on_tudla_organization"
+  end
+
+  create_table "tudla_hubstaff_organization_updates", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "last_updated_at"
+    t.bigint "organization_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_tudla_hubstaff_organization_updates_on_organization_id"
   end
 
   create_table "tudla_hubstaff_projects", force: :cascade do |t|

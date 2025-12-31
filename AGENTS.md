@@ -58,6 +58,19 @@ Do NOT use both `database:` in yml config files AND `connects_to` in environment
 - **Run tests:** `bundle exec rspec`
 - **Coverage:** SimpleCov enabled
 
+**Database Setup for Tests:**
+Rails 8 with SOLID uses multiple databases (primary, queue, cache, cable). Each has its own schema file.
+
+**CRITICAL:** After `db:reset`, you MUST load each Solid schema separately:
+```bash
+RAILS_ENV=test bundle exec rails db:reset
+RAILS_ENV=test bundle exec rails app:db:schema:load:cache
+RAILS_ENV=test bundle exec rails app:db:schema:load:queue
+RAILS_ENV=test bundle exec rails app:db:schema:load:cable
+```
+
+The `db:reset` command only loads the primary schema, not the Solid gem schemas.
+
 When writing tests:
 - Use `stub_const` for inline job classes (SolidQueue requires named classes)
 - SolidCache hashes keys internally - don't query by raw key name
@@ -92,8 +105,14 @@ bundle exec rspec spec/integration/solid_stack_spec.rb
 # Run migrations (delegated to dummy app)
 bundle exec rails db:migrate
 
-# Prepare test databases
-cd spec/dummy && RAILS_ENV=test bin/rails db:prepare
+# When adding migrations, migrate test database
+RAILS_ENV=test bundle exec rails db:migrate
+
+# Complete test database reset (when needed)
+RAILS_ENV=test bundle exec rails db:reset
+RAILS_ENV=test bundle exec rails app:db:schema:load:cache
+RAILS_ENV=test bundle exec rails app:db:schema:load:queue
+RAILS_ENV=test bundle exec rails app:db:schema:load:cable
 
 # Run RuboCop
 bundle exec rubocop
@@ -102,6 +121,8 @@ bundle exec rubocop
 ## Gotchas
 
 1. **Solid gems and database connections** - Always configure `connects_to` in environment files, not `database:` in yml files for dev/test
-2. **Engine routes** - Use `main_app.` prefix for host app routes, engine routes are available directly
-3. **FactoryBot paths** - Engine factories are in `spec/factories/`, auto-loaded via engine initializer
-4. **Running Rake Tasks** - Database migrations and other rake tasks can be run directly from the gem root (e.g., `bundle exec rails db:migrate`) as they are delegated to the dummy app via the engine's `Rakefile`.
+2. **Multi-database schema loading** - `db:reset` only loads the primary schema. You must explicitly load cache, queue, and cable schemas using `app:db:schema:load:cache`, `app:db:schema:load:queue`, and `app:db:schema:load:cable` commands
+3. **Test database state** - If you see "no such table: solid_cache_entries" or "solid_queue_jobs" errors, the Solid schemas weren't loaded. Run the schema load commands above
+4. **Engine routes** - Use `main_app.` prefix for host app routes, engine routes are available directly
+5. **FactoryBot paths** - Engine factories are in `spec/factories/`, auto-loaded via engine initializer
+6. **Running Rake Tasks** - Database migrations and other rake tasks can be run directly from the gem root (e.g., `bundle exec rails db:migrate`) as they are delegated to the dummy app via the engine's `Rakefile`
