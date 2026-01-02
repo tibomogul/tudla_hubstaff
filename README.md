@@ -63,6 +63,31 @@ members = client.members
 tasks = client.tasks(status: "active")
 ```
 
+## Scheduling Background Jobs
+
+The engine includes a `FetchUpdatedActivitiesJob` that syncs activity updates from Hubstaff. **The host application must schedule this job to run periodically.**
+
+### Using Solid Queue (Recommended)
+
+Add a recurring job in your host application's `config/recurring.yml`:
+
+```yaml
+production:
+  fetch_hubstaff_activities:
+    class: TudlaHubstaff::FetchUpdatedActivitiesJob
+    schedule: every 15 minutes
+```
+
+### Using Cron or Other Schedulers
+
+If you prefer cron or another scheduler, enqueue the job periodically:
+
+```ruby
+TudlaHubstaff::FetchUpdatedActivitiesJob.perform_later
+```
+
+**Note:** Before the job can process an organization, you must create an `OrganizationUpdate` record with a `last_updated_at` timestamp. Records with `nil` timestamps are skipped.
+
 ## Architecture
 
 - **`TudlaHubstaff::Provider`**: The main entry point for the `TudlaContracts` interface.
