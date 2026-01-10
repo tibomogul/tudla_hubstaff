@@ -17,6 +17,8 @@ module TudlaHubstaff
       end
     end
 
+    delegate :get, :post, :put, :delete, to: :connection
+
   private
 
     def token_endpoint

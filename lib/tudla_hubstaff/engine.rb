@@ -22,8 +22,8 @@ module TudlaHubstaff
       TudlaContracts::Integrations::Registry.register(
         "hubstaff",
         type: "time_sheet",
-        provider_class: TudlaHubstaff::Provider,
-        config_class: TudlaHubstaff::Config
+        provider_class: "TudlaHubstaff::Provider",
+        config_class: "TudlaHubstaff::Config"
       )
     end
   end

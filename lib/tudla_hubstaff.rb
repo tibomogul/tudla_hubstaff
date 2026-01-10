@@ -11,7 +11,6 @@ require "tudla_contracts"
 
 require "tudla_hubstaff/version"
 require "tudla_hubstaff/provider"
-require "tudla_hubstaff/config"
 require "tudla_hubstaff/engine"
 
 
