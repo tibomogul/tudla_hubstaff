@@ -1,11 +1,12 @@
 FactoryBot.define do
-  factory :user do
-    name { "MyString" }
-    first_name { "MyString" }
-    last_name { "MyString" }
-    email { "MyString" }
-    time_zone { "MyString" }
-    ip_address { "MyString" }
-    status { "MyString" }
+  factory :user, class: "TudlaHubstaff::User" do
+    sequence(:name) { |n| "User #{n}" }
+    sequence(:first_name) { |n| "First#{n}" }
+    sequence(:last_name) { |n| "Last#{n}" }
+    sequence(:email) { |n| "user#{n}@example.com" }
+    time_zone { "UTC" }
+    ip_address { "127.0.0.1" }
+    status { "active" }
+    sequence(:user_id) { |n| n }
   end
 end

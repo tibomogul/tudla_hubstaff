@@ -1,0 +1,25 @@
+<tr id="<%= dom_id(user) %>">
+  <td class="px-6 py-4 whitespace-nowrap">
+    <div class="text-sm font-medium text-gray-900"><%= user.name %></div>
+    <div class="text-sm text-gray-500"><%= user.first_name %> <%= user.last_name %></div>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap">
+    <div class="text-sm text-gray-900"><%= user.email %></div>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap">
+    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+      <%= user.status == 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' %>">
+      <%= user.status %>
+    </span>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+    <button type="button"
+            class="text-indigo-600 hover:text-indigo-900"
+            data-action="click->user-mapping-modal#open"
+            data-user-id="<%= user.id %>"
+            data-user-name="<%= user.name %>"
+            data-map-url="<%= map_tudla_user_user_path(user) %>">
+      Map to Tudla User
+    </button>
+  </td>
+</tr>

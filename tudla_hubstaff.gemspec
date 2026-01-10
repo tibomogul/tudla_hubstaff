@@ -32,6 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "httpx"
   spec.add_dependency "openid_connect"
   spec.add_dependency "tudla_contracts"
+  spec.add_dependency "turbo-rails"
 
   # Development Dependencies
   # These are used only for running the engine's test suite.

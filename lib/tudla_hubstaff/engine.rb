@@ -26,5 +26,18 @@ module TudlaHubstaff
         config_class: "TudlaHubstaff::Config"
       )
     end
+
+    initializer "tudla_hubstaff.importmap", before: "importmap" do |app|
+      if app.config.respond_to?(:importmap)
+        app.config.importmap.paths << Engine.root.join("config/importmap.rb")
+        app.config.importmap.cache_sweepers << Engine.root.join("app/javascript")
+      end
+    end
+
+    initializer "tudla_hubstaff.assets" do |app|
+      if app.config.respond_to?(:assets)
+        app.config.assets.paths << Engine.root.join("app/javascript")
+      end
+    end
   end
 end
