@@ -23,6 +23,26 @@ class DummyHostInterface < TudlaContracts::Integrations::HostInterface
       Struct.new(:id, :name, :email).new(15, "Olivia Martin", "olivia@example.com")
     ]
   end
+
+  def available_tasks_for_user(_current_user)
+    [
+      Struct.new(:id, :name, :project_name).new(1, "Setup Development Environment", "Project Alpha"),
+      Struct.new(:id, :name, :project_name).new(2, "Implement User Authentication", "Project Alpha"),
+      Struct.new(:id, :name, :project_name).new(3, "Design Database Schema", "Project Alpha"),
+      Struct.new(:id, :name, :project_name).new(4, "Create API Endpoints", "Project Beta"),
+      Struct.new(:id, :name, :project_name).new(5, "Write Unit Tests", "Project Beta"),
+      Struct.new(:id, :name, :project_name).new(6, "Setup CI/CD Pipeline", "Project Beta"),
+      Struct.new(:id, :name, :project_name).new(7, "Code Review", "Project Gamma"),
+      Struct.new(:id, :name, :project_name).new(8, "Bug Fixes", "Project Gamma"),
+      Struct.new(:id, :name, :project_name).new(9, "Performance Optimization", "Project Gamma"),
+      Struct.new(:id, :name, :project_name).new(10, "Documentation", "Project Delta"),
+      Struct.new(:id, :name, :project_name).new(11, "User Interface Design", "Project Delta"),
+      Struct.new(:id, :name, :project_name).new(12, "Integration Testing", "Project Delta"),
+      Struct.new(:id, :name, :project_name).new(13, "Security Audit", "Project Epsilon"),
+      Struct.new(:id, :name, :project_name).new(14, "Deployment Planning", "Project Epsilon"),
+      Struct.new(:id, :name, :project_name).new(15, "Client Meeting Preparation", "Project Epsilon")
+    ]
+  end
 end
 
 # Configure TudlaHubstaff to use the dummy host interface

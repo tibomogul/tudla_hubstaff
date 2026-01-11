@@ -2,3 +2,4 @@ pin "@hotwired/stimulus", to: "https://ga.jspm.io/npm:@hotwired/stimulus@3.2.2/d
 pin "tudla_hubstaff/application", to: "tudla_hubstaff/application.js"
 pin "tudla_hubstaff/controllers/index", to: "tudla_hubstaff/controllers/index.js"
 pin "tudla_hubstaff/controllers/user_mapping_modal_controller", to: "tudla_hubstaff/controllers/user_mapping_modal_controller.js"
+pin "tudla_hubstaff/controllers/task_mapping_modal_controller", to: "tudla_hubstaff/controllers/task_mapping_modal_controller.js"
