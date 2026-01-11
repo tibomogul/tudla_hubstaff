@@ -8,6 +8,9 @@
 - **Automated OAuth2**: Handles token refreshing and discovery automatically via `OpenIDConnect`.
 - **Solid Stack Integration**: SQL-backed background jobs, caching, and pub/sub.
 - **TudlaContracts Compatible**: Registers as a `time_sheet` provider.
+- **ViewComponent Architecture**: Modular, testable UI components with slot-based composition.
+- **Unmapped Entity Management**: Built-in views for mapping Users, Tasks, and Projects to Tudla entities.
+- **Customizable Views**: Generator-based ejection pattern for host app customization.
 
 ## Installation
 
@@ -38,6 +41,42 @@ To initialize a connection, you need a Hubstaff Personal Access Token (used as t
 ```ruby
 config = { personal_access_token: "your_pat_here", organization_id: "your_org_id" }
 provider = TudlaHubstaff::Provider.new(config)
+```
+
+### Host Interface Configuration
+
+The engine requires a host interface class to provide available Tudla entities for mapping. Configure this in an initializer:
+
+```ruby
+# config/initializers/tudla_hubstaff.rb
+TudlaHubstaff.host_interface_class = YourApp::HubstaffHostInterface
+```
+
+Your class must inherit from `TudlaContracts::Integrations::HostInterface` and implement:
+
+```ruby
+class YourApp::HubstaffHostInterface < TudlaContracts::Integrations::HostInterface
+  def available_users_for_user(current_user)
+    # Return array of objects with :id, :name, :email
+  end
+
+  def available_tasks_for_user(current_user)
+    # Return array of objects with :id, :name, :project_name
+  end
+
+  def available_projects_for_user(current_user)
+    # Return array of objects with :id, :name, :client_name
+  end
+end
+```
+
+### Layout Configuration
+
+By default, the engine uses its own layout. To use your application's layout:
+
+```ruby
+# config/initializers/tudla_hubstaff.rb
+TudlaHubstaff::Engine.config.tudla_hubstaff.layout = "application"
 ```
 
 ## Usage
@@ -88,12 +127,77 @@ TudlaHubstaff::FetchUpdatedActivitiesJob.perform_later
 
 **Note:** Before the job can process an organization, you must create an `OrganizationUpdate` record with a `last_updated_at` timestamp. Records with `nil` timestamps are skipped.
 
+## Mounting the Engine
+
+Mount the engine in your application's `config/routes.rb`:
+
+```ruby
+Rails.application.routes.draw do
+  mount TudlaHubstaff::Engine => "/tudla_hubstaff"
+end
+```
+
+This provides access to the unmapped entity management views:
+- `/tudla_hubstaff/users/unmapped` - Manage unmapped Hubstaff users
+- `/tudla_hubstaff/tasks/unmapped` - Manage unmapped Hubstaff tasks
+- `/tudla_hubstaff/projects/unmapped` - Manage unmapped Hubstaff projects
+
 ## Architecture
 
 - **`TudlaHubstaff::Provider`**: The main entry point for the `TudlaContracts` interface.
 - **`TudlaHubstaff::ApiClient`**: Handles Hubstaff v2 API endpoints.
 - **`TudlaHubstaff::ApiConnection`**: Manages Faraday connections and OAuth2 token lifecycle.
 - **Caching**: Access tokens and refresh tokens are stored in `Rails.cache` (backed by `SolidCache`).
+
+### ViewComponent Architecture
+
+The engine uses [ViewComponent](https://viewcomponent.org/) for modular, testable UI components:
+
+- **`TudlaHubstaff::BaseComponent`**: Base class with engine route helpers
+- **`TudlaHubstaff::UI::ModalComponent`**: Reusable modal with slots (header, body, footer)
+- **`TudlaHubstaff::UI::TableComponent`**: Table with header and rows slots
+- **`TudlaHubstaff::UI::PaginationComponent`**: Pagination with configurable path helper
+- **`TudlaHubstaff::UI::StatusBadgeComponent`**: Status badges with color coding
+- **`TudlaHubstaff::UI::MappingModalComponent`**: Specialized modal for entity mapping
+- **`TudlaHubstaff::UI::MapButtonComponent`**: Button to trigger mapping modal
+
+## Customizing Views
+
+The engine provides generators to copy views and components to your application for customization.
+
+### Copy All Views
+
+```bash
+rails g tudla_hubstaff:views
+```
+
+### Copy Scoped Views
+
+```bash
+# Copy only user views
+rails g tudla_hubstaff:views users
+
+# Copy only task views
+rails g tudla_hubstaff:views tasks
+
+# Copy only project views
+rails g tudla_hubstaff:views projects
+```
+
+### Copy Components
+
+```bash
+# Copy all components (Ruby classes and templates)
+rails g tudla_hubstaff:components
+
+# Copy only component templates (recommended for customization)
+rails g tudla_hubstaff:components --templates_only
+
+# Copy specific component scope
+rails g tudla_hubstaff:components ui
+```
+
+**Note:** When copying only templates, the engine retains control over the component logic while you customize the presentation.
 
 ## Testing
 

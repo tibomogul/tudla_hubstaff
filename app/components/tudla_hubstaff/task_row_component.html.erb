@@ -1,16 +1,13 @@
-<tr id="<%= dom_id(task) %>">
+<tr id="<%= dom_id %>" class="tudla_hubstaff-task-row">
   <td class="px-6 py-4 whitespace-nowrap">
     <div class="text-sm font-medium text-gray-900"><%= task.summary %></div>
-    <div class="text-sm text-gray-500"><%= task.details.to_s.truncate(50) %></div>
+    <div class="text-sm text-gray-500"><%= truncated_details %></div>
   </td>
   <td class="px-6 py-4 whitespace-nowrap">
     <div class="text-sm text-gray-900"><%= task.project_type %></div>
   </td>
   <td class="px-6 py-4 whitespace-nowrap">
-    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
-      <%= task.status == 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' %>">
-      <%= task.status || 'pending' %>
-    </span>
+    <%= render TudlaHubstaff::UI::StatusBadgeComponent.new(status: task.status) %>
   </td>
   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
     <button type="button"

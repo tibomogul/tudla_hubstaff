@@ -76,6 +76,34 @@ When writing tests:
 - SolidCache hashes keys internally - don't query by raw key name
 - Include `TudlaHubstaff::Engine.routes.url_helpers` for route helpers in specs
 
+### Views and ViewComponents
+
+**IMPORTANT:** Do NOT create partials in this engine. Use ViewComponents instead.
+
+Views in this engine are designed to be "ejected" into host applications for customization using the provided generators:
+- `rails g tudla_hubstaff:views` - Copy views to host app
+- `rails g tudla_hubstaff:components` - Copy ViewComponents to host app
+
+**Guidelines:**
+- Create ViewComponents for reusable UI elements (rows, badges, pagination, modals, etc.)
+- Components live in `app/components/tudla_hubstaff/`
+- UI components are namespaced under `TudlaHubstaff::UI::`
+- All components inherit from `TudlaHubstaff::BaseComponent`
+- The `ui` directory uses uppercase `UI` constant (configured via Zeitwerk inflection in `engine.rb`)
+
+**Example component structure:**
+```
+app/components/tudla_hubstaff/
+├── base_component.rb           # Base class with route helpers
+├── user_row_component.rb       # Table row components
+├── task_row_component.rb
+├── project_row_component.rb
+└── ui/
+    ├── status_badge_component.rb
+    ├── pagination_component.rb
+    └── modal_component.rb
+```
+
 ### Code Style
 
 - **Linting:** RuboCop with `rubocop-rails-omakase` (Rails default style)

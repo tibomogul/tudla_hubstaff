@@ -1,16 +1,13 @@
-<tr id="<%= dom_id(project) %>">
+<tr id="<%= dom_id %>" class="tudla_hubstaff-project-row">
   <td class="px-6 py-4 whitespace-nowrap">
     <div class="text-sm font-medium text-gray-900"><%= project.name %></div>
-    <div class="text-sm text-gray-500"><%= project.description.to_s.truncate(50) %></div>
+    <div class="text-sm text-gray-500"><%= truncated_description %></div>
   </td>
   <td class="px-6 py-4 whitespace-nowrap">
-    <div class="text-sm text-gray-900"><%= project.project_type.titleize %></div>
+    <div class="text-sm text-gray-900"><%= formatted_project_type %></div>
   </td>
   <td class="px-6 py-4 whitespace-nowrap">
-    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
-      <%= project.status == 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' %>">
-      <%= project.status || 'pending' %>
-    </span>
+    <%= render TudlaHubstaff::UI::StatusBadgeComponent.new(status: project.status) %>
   </td>
   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
     <button type="button"

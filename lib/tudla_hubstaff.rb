@@ -9,6 +9,7 @@ require "httpx/adapters/faraday"
 require "openid_connect"
 require "tudla_contracts"
 require "turbo-rails"
+require "view_component"
 
 require "tudla_hubstaff/version"
 require "tudla_hubstaff/provider"

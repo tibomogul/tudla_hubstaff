@@ -10,6 +10,8 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 require 'factory_bot_rails'
 require 'capybara/rspec'
+require 'view_component/test_helpers'
+require 'view_component/system_test_helpers'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -79,4 +81,8 @@ RSpec.configure do |config|
   # This is vital. Without it, controller specs won't know how to generate URLs
   # for the engine's isolated routes.
   config.include TudlaHubstaff::Engine.routes.url_helpers
+
+  # ViewComponent test helpers
+  config.include ViewComponent::TestHelpers, type: :component
+  config.include Capybara::RSpecMatchers, type: :component
 end

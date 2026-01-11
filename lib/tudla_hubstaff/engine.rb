@@ -2,6 +2,13 @@ module TudlaHubstaff
   class Engine < ::Rails::Engine
     isolate_namespace TudlaHubstaff
 
+    # Configure Zeitwerk to use UI instead of Ui for the ui directory
+    initializer "tudla_hubstaff.zeitwerk_inflections", before: :set_autoload_paths do
+      Rails.autoloaders.each do |autoloader|
+        autoloader.inflector.inflect("ui" => "UI")
+      end
+    end
+
     config.generators do |g|
       g.test_framework :rspec
       g.fixture_replacement :factory_bot
@@ -39,5 +46,14 @@ module TudlaHubstaff
         app.config.assets.paths << Engine.root.join("app/javascript")
       end
     end
+
+    initializer "tudla_hubstaff.view_component" do |app|
+      # ViewComponent automatically picks up components from app/components
+      # No additional configuration needed when using autoload_paths
+    end
+
+    # Configurable layout - allows host app to specify which layout to use
+    config.tudla_hubstaff = ActiveSupport::OrderedOptions.new
+    config.tudla_hubstaff.layout = "tudla_hubstaff/application"
   end
 end

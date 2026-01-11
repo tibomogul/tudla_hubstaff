@@ -1,0 +1,51 @@
+<div id="<%= id %>"
+     class="tudla_hubstaff-mapping-modal fixed inset-0 z-50 overflow-y-auto hidden"
+     data-<%= stimulus_controller %>-target="modal">
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-black/50 transition-opacity"
+       data-action="click-><%= stimulus_controller %>#close"></div>
+
+  <!-- Modal Content -->
+  <div class="fixed inset-0 z-10 overflow-y-auto">
+    <div class="flex min-h-full items-center justify-center p-4">
+      <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all w-full max-w-lg">
+        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+          <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">
+            <%= title %>: <span data-<%= stimulus_controller %>-target="itemName"></span>
+          </h3>
+
+          <!-- Search Filter -->
+          <div class="mb-4">
+            <input type="text"
+                   placeholder="<%= search_placeholder %>"
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                   data-<%= stimulus_controller %>-target="searchInput"
+                   data-action="input-><%= stimulus_controller %>#filterItems">
+          </div>
+
+          <!-- Items List -->
+          <div class="max-h-80 overflow-y-auto">
+            <div data-<%= stimulus_controller %>-target="itemsList" class="space-y-2">
+              <!-- Items will be loaded here -->
+            </div>
+            <div data-<%= stimulus_controller %>-target="loading" class="hidden text-center py-4">
+              <span class="text-gray-500"><%= loading_text %></span>
+            </div>
+          </div>
+
+          <!-- Modal Pagination -->
+          <div data-<%= stimulus_controller %>-target="pagination" class="flex justify-between items-center mt-4 pt-4 border-t border-gray-200">
+          </div>
+        </div>
+
+        <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+          <button type="button"
+                  class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                  data-action="click-><%= stimulus_controller %>#close">
+            <%= cancel_text %>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
