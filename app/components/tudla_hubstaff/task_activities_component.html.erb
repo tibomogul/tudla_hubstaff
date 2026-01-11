@@ -1,0 +1,82 @@
+<div class="tudla_hubstaff-task-activities">
+  <% if activities.any? %>
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tracked</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Activity</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Updated</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <% activities.each do |activity| %>
+            <tr class="tudla_hubstaff-activity-row">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900"><%= format_date(activity.date) %></div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900"><%= activity.user_id %></div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900"><%= format_duration(activity.tracked) %></div>
+                <% if activity.billable.to_i > 0 %>
+                  <div class="text-xs text-green-600">Billable: <%= format_duration(activity.billable) %></div>
+                <% end %>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center space-x-2">
+                  <div class="text-sm text-gray-500">
+                    <span title="Overall activity"><%= activity.overall %>%</span>
+                  </div>
+                  <div class="w-16 bg-gray-200 rounded-full h-2">
+                    <div class="bg-indigo-600 h-2 rounded-full" style="width: <%= [activity.overall.to_i, 100].min %>%"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-500">
+                  <% if activity.last_updated_at.present? %>
+                    <%= activity.last_updated_at.strftime("%b %d, %Y %H:%M") %>
+                  <% else %>
+                    -
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <% if total_pages > 1 %>
+      <div class="tudla_hubstaff-pagination flex items-center justify-between mt-4 px-4 py-3 bg-white border border-gray-200 rounded-lg sm:px-6">
+        <div class="text-sm text-gray-700">
+          Showing <span class="font-medium"><%= start_item %></span> to <span class="font-medium"><%= end_item %></span> of <span class="font-medium"><%= total_count %></span> activities
+        </div>
+        <div class="flex space-x-2">
+          <% if show_previous? %>
+            <span class="text-indigo-600 hover:text-indigo-900 cursor-pointer" data-page="<%= previous_page %>">
+              Previous
+            </span>
+          <% else %>
+            <span class="text-gray-400 cursor-not-allowed">Previous</span>
+          <% end %>
+          <% if show_next? %>
+            <span class="text-indigo-600 hover:text-indigo-900 cursor-pointer" data-page="<%= next_page %>">
+              Next
+            </span>
+          <% else %>
+            <span class="text-gray-400 cursor-not-allowed">Next</span>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="text-center py-12 bg-white rounded-lg border border-gray-200">
+      <p class="text-gray-500">No activities found for this task.</p>
+    </div>
+  <% end %>
+</div>
