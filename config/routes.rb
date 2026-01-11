@@ -18,4 +18,14 @@ TudlaHubstaff::Engine.routes.draw do
       patch :map_tudla_task
     end
   end
+
+  resources :projects, only: [] do
+    collection do
+      get :unmapped
+      get :available_tudla_projects
+    end
+    member do
+      patch :map_tudla_project
+    end
+  end
 end

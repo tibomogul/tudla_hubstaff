@@ -1,0 +1,25 @@
+<tr id="<%= dom_id(project) %>">
+  <td class="px-6 py-4 whitespace-nowrap">
+    <div class="text-sm font-medium text-gray-900"><%= project.name %></div>
+    <div class="text-sm text-gray-500"><%= project.description.to_s.truncate(50) %></div>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap">
+    <div class="text-sm text-gray-900"><%= project.project_type.titleize %></div>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap">
+    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+      <%= project.status == 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' %>">
+      <%= project.status || 'pending' %>
+    </span>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+    <button type="button"
+            class="text-indigo-600 hover:text-indigo-900"
+            data-action="click->project-mapping-modal#open"
+            data-project-id="<%= project.id %>"
+            data-project-name="<%= project.name %>"
+            data-map-url="<%= map_tudla_project_project_path(project) %>">
+      Map to Tudla Project
+    </button>
+  </td>
+</tr>

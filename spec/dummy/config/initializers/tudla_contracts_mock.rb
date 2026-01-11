@@ -43,6 +43,26 @@ class DummyHostInterface < TudlaContracts::Integrations::HostInterface
       Struct.new(:id, :name, :project_name).new(15, "Client Meeting Preparation", "Project Epsilon")
     ]
   end
+
+  def available_projects_for_user(_current_user)
+    [
+      Struct.new(:id, :name, :client_name).new(1, "Website Redesign", "Acme Corp"),
+      Struct.new(:id, :name, :client_name).new(2, "Mobile App Development", "Acme Corp"),
+      Struct.new(:id, :name, :client_name).new(3, "API Integration", "TechStart Inc"),
+      Struct.new(:id, :name, :client_name).new(4, "Database Migration", "TechStart Inc"),
+      Struct.new(:id, :name, :client_name).new(5, "Cloud Infrastructure", "GlobalTech"),
+      Struct.new(:id, :name, :client_name).new(6, "Security Audit", "GlobalTech"),
+      Struct.new(:id, :name, :client_name).new(7, "E-commerce Platform", "RetailMax"),
+      Struct.new(:id, :name, :client_name).new(8, "Inventory System", "RetailMax"),
+      Struct.new(:id, :name, :client_name).new(9, "CRM Implementation", "SalesForce Pro"),
+      Struct.new(:id, :name, :client_name).new(10, "Analytics Dashboard", "SalesForce Pro"),
+      Struct.new(:id, :name, :client_name).new(11, "HR Portal", "PeopleFirst"),
+      Struct.new(:id, :name, :client_name).new(12, "Payroll System", "PeopleFirst"),
+      Struct.new(:id, :name, :client_name).new(13, "Marketing Automation", "BrandBoost"),
+      Struct.new(:id, :name, :client_name).new(14, "Content Management", "BrandBoost"),
+      Struct.new(:id, :name, :client_name).new(15, "Customer Support Portal", "ServiceNow")
+    ]
+  end
 end
 
 # Configure TudlaHubstaff to use the dummy host interface
