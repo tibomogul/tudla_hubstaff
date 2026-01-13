@@ -30,7 +30,7 @@ module TudlaHubstaff
         Please configure it in an initializer:
 
           # config/initializers/tudla_hubstaff.rb
-          TudlaHubstaff.host_interface_class = YourApp::HostInterface
+          TudlaHubstaff.host_interface_class = "::HostInterface"
 
         Your class should inherit from TudlaContracts::Integration::HostInterface
         and implement the required methods like `available_users_for_user`.
@@ -38,7 +38,7 @@ module TudlaHubstaff
     end
 
     def host_interface
-      @host_interface ||= host_interface_class.new
+      @host_interface ||= host_interface_class.constantize.new
     end
 
     def reset_host_interface!

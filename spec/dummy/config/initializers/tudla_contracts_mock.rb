@@ -66,4 +66,4 @@ class DummyHostInterface < TudlaContracts::Integrations::HostInterface
 end
 
 # Configure TudlaHubstaff to use the dummy host interface
-TudlaHubstaff.host_interface_class = DummyHostInterface
+TudlaHubstaff.host_interface_class = "::DummyHostInterface"

@@ -73,7 +73,7 @@ The engine requires a host interface class to provide available Tudla entities f
 
 ```ruby
 # config/initializers/tudla_hubstaff.rb
-TudlaHubstaff.host_interface_class = YourApp::HubstaffHostInterface
+TudlaHubstaff.host_interface_class = "::HubstaffHostInterface"
 ```
 
 Your class must inherit from `TudlaContracts::Integrations::HostInterface` and implement:
