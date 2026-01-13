@@ -73,9 +73,5 @@ module TudlaHubstaff
     def host_interface
       TudlaHubstaff.host_interface
     end
-
-    def current_user
-      main_app.respond_to?(:current_user) ? main_app.current_user : nil
-    end
   end
 end

@@ -28,6 +28,30 @@ And then execute:
 $ bundle install
 ```
 
+### Mounting the Engine
+
+Mount the engine in your application's `config/routes.rb`:
+
+```ruby
+Rails.application.routes.draw do
+  mount TudlaHubstaff::Engine => "/tudla_hubstaff"
+end
+```
+
+### Installing Migrations
+
+Copy the engine's migrations to your application:
+
+```bash
+$ bin/rails tudla_hubstaff:install:migrations
+```
+
+Then run the migrations:
+
+```bash
+$ bin/rails db:migrate
+```
+
 ### Database Setup
 
 This engine uses the Solid trifecta. Ensure your host application is configured with the necessary databases (primary, queue, cache, cable) as described in the [Solid Rails documentation](https://github.com/rails/solid_queue).
@@ -126,21 +150,6 @@ TudlaHubstaff::FetchUpdatedActivitiesJob.perform_later
 ```
 
 **Note:** Before the job can process an organization, you must create an `OrganizationUpdate` record with a `last_updated_at` timestamp. Records with `nil` timestamps are skipped.
-
-## Mounting the Engine
-
-Mount the engine in your application's `config/routes.rb`:
-
-```ruby
-Rails.application.routes.draw do
-  mount TudlaHubstaff::Engine => "/tudla_hubstaff"
-end
-```
-
-This provides access to the unmapped entity management views:
-- `/tudla_hubstaff/users/unmapped` - Manage unmapped Hubstaff users
-- `/tudla_hubstaff/tasks/unmapped` - Manage unmapped Hubstaff tasks
-- `/tudla_hubstaff/projects/unmapped` - Manage unmapped Hubstaff projects
 
 ## Architecture
 

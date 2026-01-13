@@ -1,5 +1,12 @@
 module TudlaHubstaff
-  class ApplicationController < ActionController::Base
+  class ApplicationController < ::ApplicationController
     layout -> { TudlaHubstaff::Engine.config.tudla_hubstaff.layout }
+  end
+
+  protected
+
+  # we explicitly need the host to provide a current_user method
+  def current_user
+    super
   end
 end
