@@ -32,7 +32,7 @@ module TudlaHubstaff
       paginated_projects = filtered_projects.slice(offset, TUDLA_PROJECTS_PER_PAGE) || []
 
       render json: {
-        projects: paginated_projects.map { |p| { id: p.id, name: p.name, client_name: p.client_name } },
+        projects: paginated_projects.map { |p| { id: p.id, name: p.name } },
         current_page: page,
         total_pages: (total_count.to_f / TUDLA_PROJECTS_PER_PAGE).ceil,
         total_count: total_count

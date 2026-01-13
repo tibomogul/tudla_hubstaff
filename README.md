@@ -89,7 +89,7 @@ class YourApp::HubstaffHostInterface < TudlaContracts::Integrations::HostInterfa
   end
 
   def available_projects_for_user(current_user)
-    # Return array of objects with :id, :name, :client_name
+    # Return array of objects with :id, :name
   end
 end
 ```

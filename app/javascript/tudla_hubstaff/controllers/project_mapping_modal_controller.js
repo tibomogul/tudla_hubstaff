@@ -81,7 +81,6 @@ export default class extends Controller {
               data-action="click->project-mapping-modal#selectProject"
               data-tudla-project-id="${project.id}">
         <div class="font-medium text-gray-900">${this.escapeHtml(project.name)}</div>
-        <div class="text-sm text-gray-500">${this.escapeHtml(project.client_name || "")}</div>
       </button>
     `).join("")
   }
