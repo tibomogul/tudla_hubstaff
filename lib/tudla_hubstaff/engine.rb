@@ -28,6 +28,7 @@ module TudlaHubstaff
       after:  "app.load_config_initializers" do
         config.to_prepare do
           # Register this gem's classes
+          Rails.logger.info "Registering Hubstaff integration"
           TudlaContracts::Integrations::Registry.register(
             "hubstaff",
             type: "time_sheet",

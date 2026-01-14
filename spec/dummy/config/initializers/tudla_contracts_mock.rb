@@ -67,3 +67,9 @@ end
 
 # Configure TudlaHubstaff to use the dummy host interface
 TudlaHubstaff.host_interface_class = "::DummyHostInterface"
+
+#
+Rails.configuration.to_prepare do
+  Rails.logger.info "Resetting integrations registry"
+  TudlaContracts::Integrations::Registry.reset!
+end
