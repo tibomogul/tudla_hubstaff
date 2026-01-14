@@ -25,7 +25,7 @@ module TudlaHubstaff
 
     # Define an initializer that runs when the app boots
     initializer "tudla_hubstaff.register_integration",
-      after:  "load_config_initializers" do
+      after:  "app.load_config_initializers" do
         config.to_prepare do
           # Register this gem's classes
           TudlaContracts::Integrations::Registry.register(
