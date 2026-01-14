@@ -24,15 +24,18 @@ module TudlaHubstaff
     end
 
     # Define an initializer that runs when the app boots
-    initializer "tudla_hubstaff.register_integration" do
-      # Register this gem's classes
-      TudlaContracts::Integrations::Registry.register(
-        "hubstaff",
-        type: "time_sheet",
-        provider_class: "TudlaHubstaff::Provider",
-        config_class: "TudlaHubstaff::Config"
-      )
-    end
+    initializer "tudla_hubstaff.register_integration",
+      after:  "load_config_initializers" do
+        config.to_prepare do
+          # Register this gem's classes
+          TudlaContracts::Integrations::Registry.register(
+            "hubstaff",
+            type: "time_sheet",
+            provider_class: "TudlaHubstaff::Provider",
+            config_class: "TudlaHubstaff::Config"
+          )
+        end
+      end
 
     initializer "tudla_hubstaff.importmap", before: "importmap" do |app|
       if app.config.respond_to?(:importmap)
