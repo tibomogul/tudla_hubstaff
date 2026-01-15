@@ -35,6 +35,16 @@ module TudlaHubstaff
             provider_class: "TudlaHubstaff::Provider",
             config_class: "TudlaHubstaff::Config"
           )
+          TudlaContracts::Integrations::Registry.register_view_for_slot(
+            "task_show_tab",
+            TudlaContracts::Integrations::ViewDefinitions::ShowTabDefinition.new(
+              id: :tudla_hubstaff_task_show_tab,
+              label: "Hubstaff Activities",
+              component_class: TudlaHubstaff::TaskActivitiesComponent,
+              priority: 10,
+              if: ->(task) { true }
+            )
+          )
         end
       end
 

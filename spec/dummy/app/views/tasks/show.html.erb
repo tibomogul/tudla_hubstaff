@@ -1,1 +1,4 @@
-<%= render TudlaHubstaff::TaskActivitiesComponent.new(tudla_task_id: 1) %>
+<% TudlaContracts::Integrations::Registry.views_for_slot("task_show_tab").each do |tab_def| %>
+  <% puts "Rendering tab: #{tab_def.id}" %>
+  <%= render tab_def.component_class.new(tudla_task_id: @tudla_task_id) %>
+<% end %>
