@@ -1,43 +1,46 @@
 module TudlaHubstaff
   module UI
     class PaginationComponent < TudlaHubstaff::BaseComponent
-      def initialize(current_page:, total_pages:, total_count:, per_page: 20, path_helper:, path_params: {})
-        @current_page = current_page
-        @total_pages = total_pages
-        @total_count = total_count
-        @per_page = per_page
+      def initialize(pagy:, path_helper:, path_params: {})
+        @pagy = pagy
         @path_helper = path_helper
         @path_params = path_params
       end
 
-      attr_reader :current_page, :total_pages, :total_count, :per_page, :path_helper, :path_params
+      attr_reader :pagy, :path_helper, :path_params
+
+      delegate :last, :count, :from, :to, :previous, :next, to: :pagy
 
       def render?
-        total_pages > 1
+        last > 1
       end
 
       def start_item
-        (current_page - 1) * per_page + 1
+        from
       end
 
       def end_item
-        [ current_page * per_page, total_count ].min
+        to
+      end
+
+      def total_count
+        count
       end
 
       def previous_page_path
-        send(path_helper, path_params.merge(page: current_page - 1))
+        send(path_helper, path_params.merge(page: previous))
       end
 
       def next_page_path
-        send(path_helper, path_params.merge(page: current_page + 1))
+        send(path_helper, path_params.merge(page: self.next))
       end
 
       def show_previous?
-        current_page > 1
+        previous.present?
       end
 
       def show_next?
-        current_page < total_pages
+        self.next.present?
       end
     end
   end

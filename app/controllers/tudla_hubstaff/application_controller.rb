@@ -1,5 +1,7 @@
 module TudlaHubstaff
   class ApplicationController < ::ApplicationController
+    include Pagy::Method
+
     layout -> { TudlaHubstaff::Engine.config.tudla_hubstaff.layout }
   end
 

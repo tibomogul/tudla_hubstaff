@@ -4,12 +4,14 @@ require_relative "../../../../app/components/tudla_hubstaff/base_component"
 require_relative "../../../../app/components/tudla_hubstaff/ui/pagination_component"
 
 RSpec.describe TudlaHubstaff::UI::PaginationComponent, type: :component do
+  def build_pagy(page: 2, count: 100, limit: 20)
+    Pagy::Offset.new(page: page, limit: limit, count: count)
+  end
+
+  let(:default_pagy) { build_pagy }
   let(:default_params) do
     {
-      current_page: 2,
-      total_pages: 5,
-      total_count: 100,
-      per_page: 20,
+      pagy: default_pagy,
       path_helper: :unmapped_users_path,
       path_params: {}
     }
@@ -22,7 +24,7 @@ RSpec.describe TudlaHubstaff::UI::PaginationComponent, type: :component do
   end
 
   it "does not render when total_pages is 1" do
-    params = default_params.merge(total_pages: 1)
+    params = default_params.merge(pagy: build_pagy(page: 1, count: 10, limit: 20))
     render_inline(described_class.new(**params))
 
     expect(page).not_to have_css(".tudla_hubstaff-pagination")
@@ -50,14 +52,14 @@ RSpec.describe TudlaHubstaff::UI::PaginationComponent, type: :component do
   end
 
   it "hides Previous link on first page" do
-    params = default_params.merge(current_page: 1)
+    params = default_params.merge(pagy: build_pagy(page: 1))
     render_inline(described_class.new(**params))
 
     expect(page).not_to have_link("Previous")
   end
 
   it "hides Next link on last page" do
-    params = default_params.merge(current_page: 5)
+    params = default_params.merge(pagy: build_pagy(page: 5))
     render_inline(described_class.new(**params))
 
     expect(page).not_to have_link("Next")

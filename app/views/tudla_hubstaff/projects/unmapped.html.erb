@@ -22,9 +22,7 @@
     </div>
 
     <%= render TudlaHubstaff::UI::PaginationComponent.new(
-      current_page: @current_page,
-      total_pages: @total_pages,
-      total_count: @total_count,
+      pagy: @pagy,
       path_helper: :unmapped_projects_path
     ) %>
   <% else %>

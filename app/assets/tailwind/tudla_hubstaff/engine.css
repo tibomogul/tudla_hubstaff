@@ -12,7 +12,8 @@
   .. -> app
   ../views -> Target Directory
 */
-@source "../../../views"; 
+@source "../../../views";
+@source "../../../components"; 
 
 /* 
    @plugin Directive:

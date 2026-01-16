@@ -6,13 +6,11 @@ module TudlaHubstaff
     TUDLA_USERS_PER_PAGE = 10
 
     def unmapped
-      page = [ params[:page].to_i, 1 ].max
-      offset = (page - 1) * PER_PAGE
-
-      @users = User.where(tudla_user_id: nil).order(:name).offset(offset).limit(PER_PAGE)
-      @total_count = User.where(tudla_user_id: nil).count
-      @current_page = page
-      @total_pages = (@total_count.to_f / PER_PAGE).ceil
+      @pagy, @users = pagy(
+        :offset,
+        User.where(tudla_user_id: nil).order(:name),
+        limit: PER_PAGE
+      )
     end
 
     def available_tudla_users

@@ -6,13 +6,11 @@ module TudlaHubstaff
     TUDLA_TASKS_PER_PAGE = 10
 
     def unmapped
-      page = [ params[:page].to_i, 1 ].max
-      offset = (page - 1) * PER_PAGE
-
-      @tasks = Task.where(tudla_task_id: nil).order(:summary).offset(offset).limit(PER_PAGE)
-      @total_count = Task.where(tudla_task_id: nil).count
-      @current_page = page
-      @total_pages = (@total_count.to_f / PER_PAGE).ceil
+      @pagy, @tasks = pagy(
+        :offset,
+        Task.where(tudla_task_id: nil).order(:summary),
+        limit: PER_PAGE
+      )
     end
 
     def available_tudla_tasks

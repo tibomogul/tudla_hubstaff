@@ -6,13 +6,11 @@ module TudlaHubstaff
     TUDLA_PROJECTS_PER_PAGE = 10
 
     def unmapped
-      page = [ params[:page].to_i, 1 ].max
-      offset = (page - 1) * PER_PAGE
-
-      @projects = Project.where(tudla_project_id: nil).order(:name).offset(offset).limit(PER_PAGE)
-      @total_count = Project.where(tudla_project_id: nil).count
-      @current_page = page
-      @total_pages = (@total_count.to_f / PER_PAGE).ceil
+      @pagy, @projects = pagy(
+        :offset,
+        Project.where(tudla_project_id: nil).order(:name),
+        limit: PER_PAGE
+      )
     end
 
     def available_tudla_projects
