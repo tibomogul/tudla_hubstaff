@@ -1,0 +1,46 @@
+<tr id="<%= dom_id %>" class="tudla_hubstaff-activity-row">
+  <td class="px-6 py-4 whitespace-nowrap">
+    <div class="text-sm text-gray-900"><%= format_date(activity.date) %></div>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap">
+    <div class="text-sm font-medium text-gray-900"><%= task_name %></div>
+    <% if mapped? %>
+      <div class="text-xs text-green-600">Mapped</div>
+    <% elsif hubstaff_task.present? %>
+      <div class="text-xs text-gray-500">Hubstaff Task</div>
+    <% end %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap">
+    <div class="text-sm text-gray-900"><%= format_duration(activity.tracked) %></div>
+    <% if activity.billable.to_i > 0 %>
+      <div class="text-xs text-green-600">Billable: <%= format_duration(activity.billable) %></div>
+    <% end %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap">
+    <div class="flex items-center space-x-2">
+      <div class="text-sm text-gray-500">
+        <span title="Overall activity"><%= activity.overall %>%</span>
+      </div>
+      <div class="w-16 bg-gray-200 rounded-full h-2">
+        <div class="bg-indigo-600 h-2 rounded-full" style="width: <%= [activity.overall.to_i, 100].min %>%"></div>
+      </div>
+    </div>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+    <% if show_map_button? %>
+      <button type="button"
+              class="text-indigo-600 hover:text-indigo-900"
+              data-action="click->activity-task-mapping-modal#open"
+              data-activity-id="<%= activity.id %>"
+              data-hubstaff-task-id="<%= hubstaff_task.id %>"
+              data-task-name="<%= hubstaff_task.summary %>"
+              data-map-url="<%= map_url %>">
+        Map
+      </button>
+    <% elsif mapped? %>
+      <span class="text-green-600">✓</span>
+    <% else %>
+      <span class="text-gray-400">-</span>
+    <% end %>
+  </td>
+</tr>

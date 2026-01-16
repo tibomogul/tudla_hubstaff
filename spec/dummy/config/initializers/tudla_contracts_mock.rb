@@ -63,6 +63,10 @@ class DummyHostInterface < TudlaContracts::Integrations::HostInterface
       Struct.new(:id, :name).new(15, "Customer Support Portal")
     ]
   end
+
+  def find_task(task_id)
+    available_tasks_for_user(nil).find { |t| t.id == task_id.to_i }
+  end
 end
 
 # Configure TudlaHubstaff to use the dummy host interface

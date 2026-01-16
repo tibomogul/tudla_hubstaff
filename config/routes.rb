@@ -28,4 +28,14 @@ TudlaHubstaff::Engine.routes.draw do
       patch :map_tudla_project
     end
   end
+
+  resources :activities, only: [] do
+    collection do
+      get :user_activities
+      get :available_tudla_tasks
+    end
+    member do
+      patch :map_activity_task
+    end
+  end
 end

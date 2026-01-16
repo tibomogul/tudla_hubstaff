@@ -4,3 +4,4 @@ pin "tudla_hubstaff/controllers/index", to: "tudla_hubstaff/controllers/index.js
 pin "tudla_hubstaff/controllers/user_mapping_modal_controller", to: "tudla_hubstaff/controllers/user_mapping_modal_controller.js"
 pin "tudla_hubstaff/controllers/task_mapping_modal_controller", to: "tudla_hubstaff/controllers/task_mapping_modal_controller.js"
 pin "tudla_hubstaff/controllers/project_mapping_modal_controller", to: "tudla_hubstaff/controllers/project_mapping_modal_controller.js"
+pin "tudla_hubstaff/controllers/activity_task_mapping_modal_controller", to: "tudla_hubstaff/controllers/activity_task_mapping_modal_controller.js"

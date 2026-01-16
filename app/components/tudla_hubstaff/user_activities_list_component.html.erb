@@ -1,0 +1,70 @@
+<%= turbo_frame_tag turbo_frame_id do %>
+  <div class="tudla_hubstaff-user-activities-list" data-controller="activity-task-mapping-modal" data-available-tasks-url="<%= available_tudla_tasks_activities_path %>">
+    <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center space-x-4">
+        <%= link_to "All", filter_path(unmapped: false),
+            class: "px-3 py-1 text-sm rounded-md #{unmapped_only ? 'text-gray-600 hover:bg-gray-100' : 'bg-indigo-600 text-white'}",
+            data: { turbo_frame: turbo_frame_id } %>
+        <%= link_to "Unmapped Only", filter_path(unmapped: true),
+            class: "px-3 py-1 text-sm rounded-md #{unmapped_only ? 'bg-indigo-600 text-white' : 'text-gray-600 hover:bg-gray-100'}",
+            data: { turbo_frame: turbo_frame_id } %>
+      </div>
+    </div>
+
+    <% if activities.any? %>
+      <div class="bg-white shadow rounded-lg overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Task</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tracked</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Activity</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <% activities.each do |activity| %>
+              <%= render TudlaHubstaff::ActivityRowComponent.new(activity: activity) %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <% if total_pages > 1 %>
+        <div class="tudla_hubstaff-pagination flex items-center justify-between mt-4 px-4 py-3 bg-white border border-gray-200 rounded-lg sm:px-6">
+          <div class="text-sm text-gray-700">
+            Showing <span class="font-medium"><%= start_item %></span> to <span class="font-medium"><%= end_item %></span> of <span class="font-medium"><%= total_count %></span> activities
+          </div>
+          <div class="flex space-x-2">
+            <% if show_previous? %>
+              <%= link_to "Previous", pagination_path(page: previous_page),
+                  class: "text-indigo-600 hover:text-indigo-900",
+                  data: { turbo_frame: turbo_frame_id } %>
+            <% else %>
+              <span class="text-gray-400 cursor-not-allowed">Previous</span>
+            <% end %>
+            <% if show_next? %>
+              <%= link_to "Next", pagination_path(page: next_page),
+                  class: "text-indigo-600 hover:text-indigo-900",
+                  data: { turbo_frame: turbo_frame_id } %>
+            <% else %>
+              <span class="text-gray-400 cursor-not-allowed">Next</span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <%= render TudlaHubstaff::UI::MappingModalComponent.new(
+        id: "activity-task-mapping-modal",
+        title: "Map Activity Task",
+        stimulus_controller: "activity-task-mapping-modal",
+        available_items_url: available_tudla_tasks_activities_path
+      ) %>
+    <% else %>
+      <div class="text-center py-12 bg-white rounded-lg border border-gray-200">
+        <p class="text-gray-500">No activities found for this user.</p>
+      </div>
+    <% end %>
+  </div>
+<% end %>
