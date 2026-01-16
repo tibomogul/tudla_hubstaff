@@ -55,5 +55,10 @@ module TudlaHubstaff
       end
       tasks.body
     end
+
+    def task(task_id)
+      task = connection.get("v2/tasks/#{task_id}")
+      task.body
+    end
   end
 end
