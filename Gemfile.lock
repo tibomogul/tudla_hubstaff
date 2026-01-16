@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/tibomogul/tudla_contracts.git
-  revision: 8f15fd83fa49948f4261884b174fb188b2961c03
+  revision: 0aa17202ff2f360f6de9df46f7b41ec5b656a336
   specs:
     tudla_contracts (0.1.0)
 
