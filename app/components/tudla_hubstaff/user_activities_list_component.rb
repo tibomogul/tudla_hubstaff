@@ -66,6 +66,10 @@ module TudlaHubstaff
 
     private
 
+    def tudla_hubstaff_user
+      @tudla_hubstaff_user ||= TudlaHubstaff::User.find_by(tudla_user_id: user_id)
+    end
+
     def fetch_activities
       activities_scope
         .order(updated_at: :desc)
@@ -74,8 +78,9 @@ module TudlaHubstaff
     end
 
     def activities_scope
+      return TudlaHubstaff::Activity.none if tudla_hubstaff_user.blank?
       @activities_scope ||= begin
-        scope = TudlaHubstaff::Activity.where(user_id: user_id)
+        scope = TudlaHubstaff::Activity.where(user_id: tudla_hubstaff_user.user_id)
         if unmapped_only
           unmapped_task_ids = TudlaHubstaff::Task.where(tudla_task_id: nil).pluck(:task_id)
           scope = scope.where(task_id: unmapped_task_ids)
