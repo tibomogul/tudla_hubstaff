@@ -45,6 +45,16 @@ module TudlaHubstaff
               if: ->(task) { true }
             )
           )
+          TudlaContracts::Integrations::Registry.register_view_for_slot(
+            "dashboard_section",
+            TudlaContracts::Integrations::ViewDefinitions::DashboardSectionDefinition.new(
+              id: :tudla_hubstaff_dashboard_section,
+              label: "Hubstaff Activities",
+              component_class: TudlaHubstaff::UserActivitiesListComponent,
+              priority: 10,
+              if: ->(user) { true }
+            )
+          )
         end
       end
 

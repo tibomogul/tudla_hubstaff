@@ -1,1 +1,4 @@
-<%= render TudlaHubstaff::UserActivitiesListComponent.new(user_id: @user_id) %>
+<% TudlaContracts::Integrations::Registry.views_for_slot("dashboard_section").each do |tab_def| %>
+  <% puts "Rendering tab: #{tab_def.id}" %>
+  <%= render tab_def.component_class.new(user_id: @user_id) %>
+<% end %>
