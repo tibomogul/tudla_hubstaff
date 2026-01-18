@@ -71,6 +71,11 @@ module TudlaHubstaff
       end
     end
 
+    # Ensure the engine's assets are visible to the host's pipeline
+    initializer "tudla_hubstaff.assets.precompile" do |app|
+      app.config.assets.paths << root.join("app/assets/tailwind")
+    end
+
     initializer "tudla_hubstaff.view_component" do |app|
       # ViewComponent automatically picks up components from app/components
       # No additional configuration needed when using autoload_paths
