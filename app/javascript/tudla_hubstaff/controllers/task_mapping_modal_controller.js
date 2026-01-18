@@ -14,8 +14,6 @@ export default class extends Controller {
     this._mapUrl = event.currentTarget.dataset.mapUrl
     const taskName = event.currentTarget.dataset.taskName
 
-    console.log("Opening modal for task:", this.currentTaskId, "with map URL:", this._mapUrl)
-
     this.taskNameTarget.textContent = taskName
     this.searchInputTarget.value = ""
     this.currentPage = 1
@@ -133,10 +131,7 @@ export default class extends Controller {
     const tudlaTaskId = event.currentTarget.dataset.tudlaTaskId
     const mapUrl = this._mapUrl
     
-    console.log("selectTask called - tudla_task_id:", tudlaTaskId, "mapUrl:", mapUrl)
-    
     if (!mapUrl) {
-      console.error("Map URL not set")
       alert("Error: Map URL not set. Please try again.")
       return
     }
@@ -144,7 +139,6 @@ export default class extends Controller {
     const xhr = new XMLHttpRequest()
     const fullUrl = window.location.origin + mapUrl
     const csrfToken = this.csrfToken
-    console.log("Making XHR request to:", fullUrl, "with CSRF token:", csrfToken ? "present" : "MISSING")
     
     xhr.open("PATCH", fullUrl, true)
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
@@ -155,24 +149,19 @@ export default class extends Controller {
     }
     
     xhr.onload = () => {
-      console.log("XHR onload - status:", xhr.status)
       if (xhr.status >= 200 && xhr.status < 300) {
         alert("Success! Task mapped.")
         window.location.href = window.location.pathname
       } else {
-        console.error("Failed to map task:", xhr.status, xhr.responseText.substring(0, 200))
         alert("Failed to map task. Status: " + xhr.status)
       }
     }
     
     xhr.onerror = () => {
-      console.error("XHR onerror triggered")
       alert("Network error mapping task.")
     }
     
-    console.log("Sending XHR...")
     xhr.send(`tudla_task_id=${encodeURIComponent(tudlaTaskId)}`)
-    console.log("XHR sent, closing modal...")
     this.close()
   }
 

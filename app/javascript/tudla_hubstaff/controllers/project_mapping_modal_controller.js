@@ -14,8 +14,6 @@ export default class extends Controller {
     this._mapUrl = event.currentTarget.dataset.mapUrl
     const projectName = event.currentTarget.dataset.projectName
 
-    console.log("Opening modal for project:", this.currentProjectId, "with map URL:", this._mapUrl)
-
     this.projectNameTarget.textContent = projectName
     this.searchInputTarget.value = ""
     this.currentPage = 1
@@ -132,10 +130,7 @@ export default class extends Controller {
     const tudlaProjectId = event.currentTarget.dataset.tudlaProjectId
     const mapUrl = this._mapUrl
     
-    console.log("selectProject called - tudla_project_id:", tudlaProjectId, "mapUrl:", mapUrl)
-    
     if (!mapUrl) {
-      console.error("Map URL not set")
       alert("Error: Map URL not set. Please try again.")
       return
     }
@@ -143,7 +138,6 @@ export default class extends Controller {
     const xhr = new XMLHttpRequest()
     const fullUrl = window.location.origin + mapUrl
     const csrfToken = this.csrfToken
-    console.log("Making XHR request to:", fullUrl, "with CSRF token:", csrfToken ? "present" : "MISSING")
     
     xhr.open("PATCH", fullUrl, true)
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
@@ -154,24 +148,19 @@ export default class extends Controller {
     }
     
     xhr.onload = () => {
-      console.log("XHR onload - status:", xhr.status)
       if (xhr.status >= 200 && xhr.status < 300) {
         alert("Success! Project mapped.")
         window.location.href = window.location.pathname
       } else {
-        console.error("Failed to map project:", xhr.status, xhr.responseText.substring(0, 200))
         alert("Failed to map project. Status: " + xhr.status)
       }
     }
     
     xhr.onerror = () => {
-      console.error("XHR onerror triggered")
       alert("Network error mapping project.")
     }
     
-    console.log("Sending XHR...")
     xhr.send(`tudla_project_id=${encodeURIComponent(tudlaProjectId)}`)
-    console.log("XHR sent, closing modal...")
     this.close()
   }
 
