@@ -1,27 +1,21 @@
-GIT
-  remote: https://github.com/tibomogul/tudla_contracts.git
-  revision: 1ff46203746880e248947b9579a0eea6b7d626c8
-  specs:
-    tudla_contracts (0.1.0)
-
 PATH
   remote: .
   specs:
     tudla_hubstaff (0.1.0)
-      faraday
-      httpx
-      importmap-rails
-      openid_connect
+      faraday (~> 2.0)
+      httpx (~> 1.0)
+      importmap-rails (~> 2.0)
+      openid_connect (~> 2.0)
       pagy (~> 43.0)
       rails (>= 8.1.1)
-      solid_cable
-      solid_cache
-      solid_queue
-      stimulus-rails
-      tailwindcss-rails
-      tudla_contracts
-      turbo-rails
-      view_component
+      solid_cable (~> 3.0)
+      solid_cache (~> 1.0)
+      solid_queue (~> 1.0)
+      stimulus-rails (~> 1.0)
+      tailwindcss-rails (~> 4.0)
+      tudla_contracts (~> 0.1)
+      turbo-rails (~> 2.0)
+      view_component (~> 4.0)
 
 GEM
   remote: https://rubygems.org/
@@ -424,6 +418,7 @@ GEM
     thor (1.4.0)
     timeout (0.6.0)
     tsort (0.2.0)
+    tudla_contracts (0.1.0)
     turbo-rails (2.0.20)
       actionpack (>= 7.1.0)
       railties (>= 7.1.0)
@@ -468,20 +463,19 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
-  capybara
-  debug
+  capybara (~> 3.0)
+  debug (~> 1.0)
   dotenv
-  factory_bot_rails
+  factory_bot_rails (~> 6.0)
   openssl (~> 3.3.1)
-  pg
+  pg (~> 1.0)
   propshaft
   puma
-  rspec-rails
+  rspec-rails (~> 8.0)
   rubocop-rails-omakase
-  selenium-webdriver
-  simplecov
+  selenium-webdriver (~> 4.0)
+  simplecov (~> 0.2)
   sqlite3
-  tudla_contracts!
   tudla_hubstaff!
 
 BUNDLED WITH

@@ -14,13 +14,11 @@
 
 ## Installation
 
-Add this gem to your application's Gemfile:
+Add the gem to your application's Gemfile:
 
 ```ruby
+gem "tudla_contracts"
 gem "tudla_hubstaff"
-
-# Since tudla_contracts is currently unpublished, you may also need:
-gem "tudla_contracts", git: "https://github.com/tibomogul/tudla_contracts.git"
 ```
 
 And then execute:
@@ -52,6 +50,27 @@ Then run the migrations:
 $ bin/rails db:migrate
 ```
 
+### Generating the engine's Tailwind import file
+
+We are using`tailwindcss-rails` experiment support https://github.com/rails/tailwindcss-rails?tab=readme-ov-file#rails-engines-support-experimental
+
+Run the following command to generate the engine's Tailwind import file `app/assets/builds/tailwind/tudla_hubstaff.css`:
+```bash
+$ bin/rails tailwindcss:engines
+```
+
+Edit your `app/assets/tailwind/application.css` to import the engine's Tailwind import file:
+```css
+@import "../builds/tailwind/tudla_hubstaff";
+```
+
+### Importing the engine's JavaScript
+
+Edit your `app/javascript/application.js` to import the engine's JavaScript:
+```javascript
+import "tudla_hubstaff/controllers/index"
+```
+
 ### Database Setup
 
 This engine uses the Solid trifecta. Ensure your host application is configured with the necessary databases (primary, queue, cache, cable) as described in the [Solid Rails documentation](https://github.com/rails/solid_queue).
@@ -63,8 +82,13 @@ The engine registers itself automatically with `TudlaContracts`. You typically i
 To initialize a connection, you need a Hubstaff Personal Access Token (used as the initial refresh token):
 
 ```ruby
-config = { personal_access_token: "your_pat_here", organization_id: "your_org_id" }
-provider = TudlaHubstaff::Provider.new(config)
+config = TudlaHubstaff::Config.new
+config.tudla_organization = Organization.first
+config.personal_access_token = ENV["HUBSTAFF_PAT"]
+config.organization_id = ENV["HUBSTAFF_VALUEPRO_ID"].to_i
+config.save
+
+# provider = TudlaHubstaff::Provider.new(config)
 ```
 
 ### Host Interface Configuration

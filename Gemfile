@@ -1,7 +1,5 @@
 source "https://rubygems.org"
 
-gem "tudla_contracts", git: "https://github.com/tibomogul/tudla_contracts.git"
-
 # Specify your gem's dependencies in tudla_hubstaff.gemspec.
 gemspec
 
