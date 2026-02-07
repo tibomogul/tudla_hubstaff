@@ -9,6 +9,7 @@ Gem::Specification.new do |spec|
   spec.summary     = "A Solid-integrated Rails 8 Engine."
   spec.description = "Provides core domain logic with RSpec, Solid Queue, and Tailwind integration."
   spec.license     = "MIT"
+  spec.required_ruby_version = ">= 3.0.0"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the "allowed_push_host"
   # to allow pushing to a single host or delete this section to allow pushing to any host.
@@ -24,7 +25,7 @@ Gem::Specification.new do |spec|
     Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   end
 
-  spec.add_dependency "rails", ">= 8.1.1"
+  spec.add_dependency "rails", "~> 8.1"
   spec.add_dependency "solid_queue", "~> 1.0"
   spec.add_dependency "solid_cache", "~> 1.0"
   spec.add_dependency "solid_cable", "~> 3.0"

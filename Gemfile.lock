@@ -7,7 +7,7 @@ PATH
       importmap-rails (~> 2.0)
       openid_connect (~> 2.0)
       pagy (~> 43.0)
-      rails (>= 8.1.1)
+      rails (~> 8.1)
       solid_cable (~> 3.0)
       solid_cache (~> 1.0)
       solid_queue (~> 1.0)
